@@ -4,13 +4,15 @@
   "version": "0.1.0",
   "description": "Standardize code review comments using conventions like Conventional Comments and Netlify Feedback Ladders",
   "icons": {
-    "16": "assets/icons/icon-16.png",
-    "32": "assets/icons/icon-32.png",
-    "48": "assets/icons/icon-48.png",
-    "128": "assets/icons/icon-128.png"
+    "16": "assets/icons/icon.svg",
+    "32": "assets/icons/icon.svg",
+    "48": "assets/icons/icon.svg",
+    "128": "assets/icons/icon.svg"
   },
   "permissions": [
-    "storage"
+    "storage",
+    "alarms",
+    "notifications"
   ],
   "host_permissions": [
     "*://github.com/*"
@@ -28,22 +30,14 @@
     }
   ],
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "src/popup/popup.html",
     "default_icon": {
-      "16": "assets/icons/icon-16.png",
-      "32": "assets/icons/icon-32.png",
-      "48": "assets/icons/icon-48.png",
-      "128": "assets/icons/icon-128.png"
+      "16": "assets/icons/icon.svg",
+      "32": "assets/icons/icon.svg",
+      "48": "assets/icons/icon.svg",
+      "128": "assets/icons/icon.svg"
     }
   },
-  "options_page": "options.html",
-  "commands": {
-    "open-convention-dropdown": {
-      "suggested_key": {
-        "default": "Ctrl+Shift+Slash",
-        "mac": "Command+Shift+Slash"
-      },
-      "description": "Open convention dropdown"
-    }
-  }
+  "options_page": "src/options/options.html"
+
 }

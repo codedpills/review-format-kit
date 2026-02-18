@@ -20,11 +20,8 @@ let observer: MutationObserver | null = null;
  * Initialize the content script
  */
 async function init(): Promise<void> {
-    console.log('PR Comment Conventions: Initializing on GitHub PR page');
-
     // Check if we're on a PR page
     if (!isPullRequestPage()) {
-        console.log('PR Comment Conventions: Not a PR page, skipping initialization');
         return;
     }
 
@@ -34,13 +31,10 @@ async function init(): Promise<void> {
 
     // Process existing textareas
     const textareas = findAllTextareas();
-    console.log(`PR Comment Conventions: Found ${textareas.length} textareas`);
     textareas.forEach(handleTextareaDiscovered);
 
     // Set up MutationObserver for dynamic content
     observeDOM();
-
-    console.log('PR Comment Conventions: Initialization complete');
 }
 
 /**
@@ -100,11 +94,7 @@ function handleTextareaDiscovered(textarea: DetectedTextarea): void {
     processedTextareas.add(textarea.element);
 
     // Inject icon
-    const icon = injectIcon(textarea, handleIconClick);
-
-    if (icon) {
-        console.log(`PR Comment Conventions: Injected icon for ${textarea.type} textarea`);
-    }
+    injectIcon(textarea, handleIconClick);
 }
 
 /**

@@ -13,7 +13,6 @@ const SYNC_ALARM_NAME = 'remote-config-sync';
  * Initialize service worker
  */
 async function init(): Promise<void> {
-    console.log('PR Comment Conventions: Service worker initialized');
 
     // Set up periodic sync alarm
     await setupPeriodicSync();
@@ -35,11 +34,9 @@ async function setupPeriodicSync(): Promise<void> {
             await chrome.alarms.create(SYNC_ALARM_NAME, {
                 periodInMinutes: intervalHours * 60,
             });
-            console.log(`Periodic sync scheduled every ${intervalHours} hours`);
         } else {
             // Clear alarm if sync is disabled
             await chrome.alarms.clear(SYNC_ALARM_NAME);
-            console.log('Periodic sync disabled');
         }
     } catch (error) {
         console.error('Error setting up periodic sync:', error);
@@ -61,10 +58,7 @@ async function performSyncIfDue(): Promise<void> {
         const lastSync = await getLastSyncTimestamp();
 
         if (isSyncDue(lastSync, remoteConfigSyncInterval)) {
-            console.log('Sync is due, performing sync...');
             await performSync();
-        } else {
-            console.log('Sync not due yet');
         }
     } catch (error) {
         console.error('Error checking sync status:', error);
@@ -80,20 +74,13 @@ async function performSync(): Promise<void> {
         const { remoteConfigUrl } = config.settings;
 
         if (!remoteConfigUrl) {
-            console.log('No remote config URL configured');
             return;
         }
-
-        console.log(`Syncing from: ${remoteConfigUrl}`);
 
         // Default to 'append' strategy for background sync
         const result = await syncRemoteConfig(remoteConfigUrl, 'append');
 
         if (result.success) {
-            console.log('Sync successful:', {
-                groupsAdded: result.groupsAdded,
-                groupsUpdated: result.groupsUpdated,
-            });
 
             // Update last sync timestamp
             await updateLastSyncTimestamp(result.timestamp.getTime());
@@ -189,7 +176,6 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
  */
 chrome.alarms.onAlarm.addListener((alarm) => {
     if (alarm.name === SYNC_ALARM_NAME) {
-        console.log('Periodic sync alarm triggered');
         performSync();
     }
 });
@@ -198,15 +184,10 @@ chrome.alarms.onAlarm.addListener((alarm) => {
  * Handle extension installation/update
  */
 chrome.runtime.onInstalled.addListener((details) => {
-    console.log('Extension installed/updated:', details.reason);
 
     if (details.reason === 'install') {
-        // First install
-        console.log('First install - initializing...');
         init();
     } else if (details.reason === 'update') {
-        // Extension updated
-        console.log('Extension updated');
         init();
     }
 });

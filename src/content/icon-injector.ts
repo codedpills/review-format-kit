@@ -35,14 +35,86 @@ export function injectIcon(
     }
 
     // Find insertion point and inject
-    const inserted = insertIconIntoDOM(textarea.element, iconContainer);
+    const insertionPoint = findInsertionPoint(textarea.element);
+
+    if (!insertionPoint) {
+        return null;
+    }
+
+    const inserted = insertIconAtPoint(insertionPoint, iconContainer);
 
     if (!inserted) {
-        console.warn('PR Conventions: Could not inject icon for textarea', textarea.id);
         return null;
     }
 
     return iconContainer;
+}
+
+/**
+ * Types of insertion points
+ */
+type InsertionType = 'toolbar' | 'container' | 'sibling';
+
+interface InsertionPoint {
+    element: HTMLElement;
+    type: InsertionType;
+}
+
+/**
+ * Find the best place to inject the icon
+ */
+function findInsertionPoint(textarea: HTMLTextAreaElement): InsertionPoint | null {
+    // 1. Try to find a toolbar by role or label
+    const toolbar = findTextareaToolbar(textarea);
+    if (toolbar) {
+        return { element: toolbar, type: 'toolbar' };
+    }
+
+    // 2. Try to find a container with data attributes
+    const container = textarea.closest('[data-marker-id="new-comment"], .js-comment-field, .comment-form-textarea');
+    if (container && container instanceof HTMLElement) {
+        return { element: container, type: 'container' };
+    }
+
+    // 3. Fallback to parent
+    if (textarea.parentElement) {
+        return { element: textarea.parentElement, type: 'sibling' };
+    }
+
+    return null;
+}
+
+/**
+ * Insert icon at the specified point
+ */
+function insertIconAtPoint(point: InsertionPoint, icon: HTMLElement): boolean {
+    const { element, type } = point;
+
+    if (type === 'toolbar') {
+        element.appendChild(icon);
+        return true;
+    }
+
+    if (type === 'container' || type === 'sibling') {
+        const target = (type === 'container') ? element : element;
+
+        // Ensure parent is relative for absolute positioning
+        if (target.style.position !== 'absolute') {
+            target.style.position = 'relative';
+        }
+
+        target.appendChild(icon);
+
+        // Position icon absolutely in top-right
+        icon.style.position = 'absolute';
+        icon.style.top = '8px';
+        icon.style.right = '8px';
+        icon.style.zIndex = '100'; // High z-index to stay on top
+
+        return true;
+    }
+
+    return false;
 }
 
 /**
@@ -71,66 +143,31 @@ function createIconElement(textareaId: string): HTMLElement {
     return container;
 }
 
-/**
- * Insert icon into DOM relative to textarea
- */
-function insertIconIntoDOM(textarea: HTMLTextAreaElement, icon: HTMLElement): boolean {
-    // Strategy 1: Try to find GitHub's textarea toolbar
-    const toolbar = findTextareaToolbar(textarea);
-    if (toolbar) {
-        // Insert at the end of the toolbar
-        toolbar.appendChild(icon);
-        return true;
+
+function findTextareaToolbar(textarea: HTMLTextAreaElement): HTMLElement | null {
+    // Look for common GitHub toolbar selectors (Semantic first)
+    // 1. Search for role="toolbar" in the nearest composer/editor container
+    const container = textarea.closest('.MarkdownEditor-module__container, .js-comment-field, .comment-form-textarea');
+    if (container) {
+        const toolbar = container.querySelector('[role="toolbar"], .toolbar');
+        if (toolbar) return toolbar as HTMLElement;
     }
 
-    // Strategy 2: Insert as sibling after textarea's parent container
-    const container = textarea.closest('.comment-form-textarea, .js-comment-field');
-    if (container && container.parentElement) {
-        // Create a wrapper if needed
-        const wrapper = document.createElement('div');
-        wrapper.style.position = 'relative';
-        wrapper.style.display = 'inline-block';
-
-        container.parentElement.insertBefore(wrapper, container);
-        wrapper.appendChild(container);
-        wrapper.appendChild(icon);
-
-        // Position icon absolutely in top-right
-        icon.style.position = 'absolute';
-        icon.style.top = '8px';
-        icon.style.right = '8px';
-        icon.style.zIndex = '10';
-
-        return true;
+    // 2. Search for any toolbar nearby with formatting labels
+    const nearbyToolbar = document.querySelector('[aria-label="Formatting tools"], [aria-label="Toolbar"]');
+    if (nearbyToolbar && proximityCheck(textarea, nearbyToolbar)) {
+        return nearbyToolbar as HTMLElement;
     }
 
-    // Strategy 3: Insert as direct sibling
-    if (textarea.parentElement) {
-        textarea.parentElement.style.position = 'relative';
-        textarea.parentElement.appendChild(icon);
-
-        icon.style.position = 'absolute';
-        icon.style.top = '8px';
-        icon.style.right = '8px';
-        icon.style.zIndex = '10';
-
-        return true;
-    }
-
-    return false;
+    return null;
 }
 
 /**
- * Find GitHub's textarea toolbar (if it exists)
+ * Check if a toolbar is actually related to the textarea
  */
-function findTextareaToolbar(textarea: HTMLTextAreaElement): HTMLElement | null {
-    // Look for common GitHub toolbar selectors
-    const parent = textarea.closest('.comment-form-textarea, .js-comment-field');
-    if (!parent) return null;
-
-    // Check for toolbar in parent
-    const toolbar = parent.querySelector('.toolbar, .comment-form-actions, .form-actions');
-    return toolbar as HTMLElement | null;
+function proximityCheck(textarea: HTMLElement, toolbar: Element): boolean {
+    const container = textarea.closest('div');
+    return !!(container && container.contains(toolbar)) || !!toolbar.closest('div')?.contains(textarea);
 }
 
 /**

@@ -30,37 +30,40 @@ export function findAllTextareas(): DetectedTextarea[] {
     return textareas;
 }
 
-/**
- * Check if a textarea is a GitHub PR comment field
- */
 export function isCommentTextarea(element: HTMLTextAreaElement): boolean {
-    // Strategy 1: Check aria-label
-    const ariaLabel = element.getAttribute('aria-label')?.toLowerCase() || '';
-    if (ariaLabel.includes('comment') || ariaLabel.includes('review')) {
-        return true;
-    }
-
-    // Strategy 2: Check for common GitHub comment field classes/IDs
-    const id = element.id.toLowerCase();
     const name = element.name.toLowerCase();
+    const ariaLabel = element.getAttribute('aria-label')?.toLowerCase() || '';
+    const placeholder = element.getAttribute('placeholder')?.toLowerCase() || '';
 
+    // Strategy 1: Explicit comment/review attributes
     if (
-        id.includes('comment') ||
+        ariaLabel.includes('comment') ||
+        ariaLabel.includes('review') ||
+        placeholder.includes('comment') ||
+        placeholder.includes('review') ||
+        placeholder.includes('markdown') ||
+        placeholder.includes('leave a comment') ||
         name.includes('comment') ||
-        id.includes('review') ||
         name.includes('review')
     ) {
         return true;
     }
 
-    // Strategy 3: Check parent containers
-    const container = element.closest('.js-comment-field, .comment-form-textarea, .timeline-comment');
-    if (container) {
+    // Strategy 2: Stable data attributes used by GitHub
+    if (
+        element.hasAttribute('data-comment-id') ||
+        element.hasAttribute('data-review-id') ||
+        element.closest('[data-marker-id="new-comment"]') ||
+        element.closest('[data-testid="comment-composer"]') // Potential future-proof
+    ) {
         return true;
     }
 
-    // Strategy 4: Check for GitHub-specific attributes
-    if (element.hasAttribute('data-comment-id') || element.hasAttribute('data-review-id')) {
+    // Strategy 3: Search for ARIA role and context
+    // Many modern web apps use role="textbox" for custom editors, 
+    // but GitHub still uses textareas inside containers.
+    const isInsideEditor = !!element.closest('[role="textbox"], .MarkdownEditor-module__container');
+    if (isInsideEditor && (ariaLabel.includes('markdown') || placeholder.includes('comment'))) {
         return true;
     }
 
@@ -73,21 +76,22 @@ export function isCommentTextarea(element: HTMLTextAreaElement): boolean {
 export function getTextareaType(textarea: HTMLTextAreaElement): TextareaType {
     const ariaLabel = textarea.getAttribute('aria-label')?.toLowerCase() || '';
     const id = textarea.id.toLowerCase();
+    const placeholder = textarea.getAttribute('placeholder')?.toLowerCase() || '';
 
     // Check for inline code review comment
     if (
         ariaLabel.includes('inline') ||
-        textarea.closest('.inline-comment-form') ||
-        textarea.closest('.js-inline-comment-form')
+        placeholder.includes('inline') ||
+        textarea.closest('.inline-comment-form, [data-marker-id="inline-comment"]')
     ) {
         return 'inline-comment';
     }
 
     // Check for review summary
     if (
-        ariaLabel.includes('review') ||
-        id.includes('review') ||
-        textarea.closest('.review-summary-form')
+        ariaLabel.includes('review summary') ||
+        id.includes('review-summary') ||
+        textarea.closest('.review-summary-form, [data-marker-id="review-summary"]')
     ) {
         return 'review-summary';
     }
@@ -95,8 +99,7 @@ export function getTextareaType(textarea: HTMLTextAreaElement): TextareaType {
     // Check for reply to existing comment
     if (
         ariaLabel.includes('reply') ||
-        textarea.closest('.js-comment-edit-form') ||
-        textarea.closest('.timeline-comment-wrapper')
+        textarea.closest('.js-comment-edit-form, .timeline-comment-wrapper')
     ) {
         return 'reply-comment';
     }
