@@ -1,6 +1,6 @@
 /**
  * Content script for GitHub PR pages
- * Detects textareas and injects convention dropdown UI
+ * Review Format Kit (RFK)
  */
 
 import { findAllTextareas, findTextareasIn, type DetectedTextarea } from './textarea-detector';
@@ -105,7 +105,7 @@ async function handleIconClick(textarea: HTMLTextAreaElement): Promise<void> {
     const conventions = await getActiveConventions();
 
     if (conventions.length === 0) {
-        console.warn('PR Comment Conventions: No conventions available');
+        console.warn('RFK: No conventions available');
         return;
     }
 
@@ -130,7 +130,7 @@ async function getActiveConventions(): Promise<Convention[]> {
         const activeGroup = await configManager.getActiveGroup();
         return activeGroup?.conventions || [];
     } catch (error) {
-        console.error('PR Comment Conventions: Error getting conventions', error);
+        console.error('RFK: Error getting conventions', error);
         return [];
     }
 }

@@ -1,5 +1,5 @@
 /**
- * Textarea detector for GitHub PR comment fields
+ * Textarea detector for Review Format Kit (RFK)
  * Detects various types of comment textareas on GitHub PR pages
  */
 

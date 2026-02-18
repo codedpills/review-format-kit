@@ -1,5 +1,5 @@
 /**
- * Background service worker for the PR Comment Conventions extension
+ * Background service worker for the Review Format Kit (RFK) extension
  * Handles extension lifecycle, remote config sync, and background tasks
  */
 

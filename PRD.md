@@ -1,4 +1,4 @@
-# Product Requirements Document: PR Comments Convention Browser Extension
+# Product Requirements Document: Review Format Kit (RFK) Browser Extension
 
 **Version:** 1.0  
 **Last Updated:** February 17, 2026  
@@ -284,7 +284,7 @@ For each group, users can:
 ### Extension Structure
 
 ```
-pr-comment-plugin/
+review-format-kit/
 ├── manifest.json              # Extension manifest (v3 for Chrome, v2/v3 for Firefox)
 ├── background/
 │   └── service-worker.js      # Background script for config sync, shortcuts
@@ -651,7 +651,7 @@ After clicking icon:
 
 ```
 ┌─────────────────────────────┐
-│ PR Comment Conventions       │
+│ Review Format Kit (RFK)       │
 ├─────────────────────────────┤
 │ Active Group:                │
 │ ✓ Conventional Comments      │

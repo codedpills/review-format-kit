@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "PR Comment Conventions",
+  "name": "Review Format Kit (RFK)",
   "version": "0.1.0",
-  "description": "Standardize code review comments using conventions like Conventional Comments and Netlify Feedback Ladders",
+  "description": "Standardize your code review comments with ease using the Review Format Kit.",
   "icons": {
     "16": "assets/icons/icon.svg",
     "32": "assets/icons/icon.svg",

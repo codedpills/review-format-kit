@@ -1,6 +1,6 @@
-# PR Comment Conventions
+# Review Format Kit (RFK)
 
-Browser extension for standardizing code review comments using conventions like [Conventional Comments](https://conventionalcomments.org/) and [Netlify Feedback Ladders](https://www.netlify.com/blog/2020/03/05/feedback-ladders-how-we-encode-code-reviews-at-netlify/).
+The Review Format Kit (RFK) is a browser extension for standardizing code review comments using conventions like [Conventional Comments](https://conventionalcomments.org/) and [Netlify Feedback Ladders](https://www.netlify.com/blog/2020/03/05/feedback-ladders-how-we-encode-code-reviews-at-netlify/).
 
 ## Features
 
@@ -17,8 +17,8 @@ Browser extension for standardizing code review comments using conventions like 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/pr-comment-conventions.git
-   cd pr-comment-conventions
+   git clone https://github.com/yourusername/review-format-kit.git
+   cd review-format-kit
    ```
 
 2. Install dependencies:
@@ -101,7 +101,7 @@ Expected coverage thresholds:
 ### Project Structure
 
 ```
-pr-comment-conventions/
+review-format-kit/
 ├── src/
 │   ├── background/        # Background service worker
 │   ├── content/           # Content scripts for GitHub
@@ -180,9 +180,9 @@ MIT License - see [LICENSE](LICENSE) for details
 
 ## Support
 
-- 🐛 [Report Bug](https://github.com/yourusername/pr-comment-conventions/issues)
-- 💡 [Request Feature](https://github.com/yourusername/pr-comment-conventions/issues)
-- 📖 [Documentation](https://github.com/yourusername/pr-comment-conventions/wiki)
+- 🐛 [Report Bug](https://github.com/yourusername/review-format-kit/issues)
+- 💡 [Request Feature](https://github.com/yourusername/review-format-kit/issues)
+- 📖 [Documentation](https://github.com/yourusername/review-format-kit/wiki)
 
 ## Acknowledgments
 

@@ -1,7 +1,7 @@
 {
-  "name": "pr-comment-conventions",
+  "name": "review-format-kit",
   "version": "0.1.0",
-  "description": "Browser extension for standardizing PR code review comments using conventions like Conventional Comments and Netlify Feedback Ladders",
+  "description": "Review Format Kit (RFK) - Standardize your code review comments with ease.",
   "type": "module",
   "scripts": {
     "dev": "vite",
