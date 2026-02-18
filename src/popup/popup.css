@@ -1,0 +1,235 @@
+/**
+ * Popup styles
+ * Matches GitHub's design language with clean, modern UI
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #24292f;
+    background: #ffffff;
+    width: 350px;
+    min-height: 200px;
+}
+
+.popup-container {
+    padding: 16px;
+}
+
+/* Header */
+header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #d0d7de;
+}
+
+header h1 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #24292f;
+}
+
+/* Active Group Section */
+.active-group {
+    margin-bottom: 16px;
+}
+
+.active-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #57606a;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#group-selector {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #24292f;
+    background-color: #ffffff;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+#group-selector:hover {
+    border-color: #8c959f;
+}
+
+#group-selector:focus {
+    border-color: #0969da;
+    box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
+}
+
+/* Group Info */
+.group-info {
+    margin-bottom: 16px;
+    padding: 12px;
+    background: #f6f8fa;
+    border-radius: 6px;
+}
+
+.convention-count {
+    font-size: 13px;
+    color: #57606a;
+}
+
+.convention-count span {
+    font-weight: 600;
+    color: #24292f;
+}
+
+/* Quick Actions */
+.quick-actions {
+    margin-bottom: 16px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    border: 1px solid;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.btn-secondary {
+    color: #24292f;
+    background-color: #f6f8fa;
+    border-color: rgba(27, 31, 36, 0.15);
+}
+
+.btn-secondary:hover {
+    background-color: #f3f4f6;
+    border-color: rgba(27, 31, 36, 0.15);
+}
+
+.btn-secondary:active {
+    background-color: #ebecf0;
+    border-color: rgba(27, 31, 36, 0.15);
+}
+
+.btn svg {
+    flex-shrink: 0;
+}
+
+/* Footer */
+footer {
+    padding-top: 12px;
+    border-top: 1px solid #d0d7de;
+}
+
+.shortcut-help {
+    font-size: 12px;
+    color: #57606a;
+    text-align: center;
+}
+
+kbd {
+    display: inline-block;
+    padding: 3px 6px;
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+    font-size: 11px;
+    line-height: 10px;
+    color: #24292f;
+    vertical-align: middle;
+    background-color: #f6f8fa;
+    border: 1px solid rgba(175, 184, 193, 0.2);
+    border-radius: 6px;
+    box-shadow: inset 0 -1px 0 rgba(175, 184, 193, 0.2);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    body {
+        color: #c9d1d9;
+        background: #0d1117;
+    }
+
+    header h1 {
+        color: #c9d1d9;
+    }
+
+    header,
+    footer {
+        border-color: #30363d;
+    }
+
+    .active-group label {
+        color: #8b949e;
+    }
+
+    #group-selector {
+        color: #c9d1d9;
+        background-color: #0d1117;
+        border-color: #30363d;
+    }
+
+    #group-selector:hover {
+        border-color: #8b949e;
+    }
+
+    #group-selector:focus {
+        border-color: #58a6ff;
+        box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+    }
+
+    .group-info {
+        background: #161b22;
+    }
+
+    .convention-count {
+        color: #8b949e;
+    }
+
+    .convention-count span {
+        color: #c9d1d9;
+    }
+
+    .btn-secondary {
+        color: #c9d1d9;
+        background-color: #21262d;
+        border-color: rgba(240, 246, 252, 0.1);
+    }
+
+    .btn-secondary:hover {
+        background-color: #30363d;
+        border-color: rgba(240, 246, 252, 0.1);
+    }
+
+    .btn-secondary:active {
+        background-color: #282e33;
+    }
+
+    .shortcut-help {
+        color: #8b949e;
+    }
+
+    kbd {
+        color: #c9d1d9;
+        background-color: #161b22;
+        border-color: rgba(110, 118, 129, 0.4);
+        box-shadow: inset 0 -1px 0 rgba(110, 118, 129, 0.4);
+    }
+}

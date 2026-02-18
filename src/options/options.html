@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PR Comment Conventions - Settings</title>
+    <link rel="stylesheet" href="./options.css">
+</head>
+
+<body>
+    <div class="settings-container">
+        <header>
+            <h1>PR Comment Conventions - Settings</h1>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab active" data-tab="groups">Convention Groups</button>
+            <button class="tab" data-tab="general">General Settings</button>
+            <button class="tab" data-tab="import-export">Import/Export</button>
+        </nav>
+
+        <main id="tab-content">
+            <!-- Convention Groups Tab -->
+            <div id="groups-tab" class="tab-panel active">
+                <div class="tab-header">
+                    <h2>Convention Groups</h2>
+                    <button id="create-group-btn" class="btn btn-primary">+ Create New Group</button>
+                </div>
+
+                <div id="groups-list" class="groups-list">
+                    <!-- Groups will be populated here -->
+                </div>
+            </div>
+
+            <!-- General Settings Tab -->
+            <div id="general-tab" class="tab-panel">
+                <h2>General Settings</h2>
+
+                <div class="setting-group">
+                    <label for="keyboard-shortcut">Keyboard Shortcut</label>
+                    <input type="text" id="keyboard-shortcut" placeholder="Cmd+Shift+/" readonly>
+                    <p class="help-text">Click to change the keyboard shortcut for opening the convention dropdown</p>
+                </div>
+
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="show-icon">
+                        Show icon next to textareas
+                    </label>
+                    <p class="help-text">Display the convention trigger icon next to GitHub comment textareas</p>
+                </div>
+            </div>
+
+            <!-- Import/Export Tab -->
+            <div id="import-export-tab" class="tab-panel">
+                <h2>Import/Export</h2>
+
+                <div class="setting-group">
+                    <h3>Export Configuration</h3>
+                    <p class="help-text">Download your convention groups as a JSON file</p>
+                    <button id="export-all-btn" class="btn btn-secondary">Export All Groups</button>
+                </div>
+
+                <div class="setting-group">
+                    <h3>Import Configuration</h3>
+                    <p class="help-text">Import convention groups from a JSON file</p>
+                    <input type="file" id="import-file" accept=".json" style="display: none;">
+                    <button id="import-btn" class="btn btn-secondary">Import from File</button>
+                </div>
+
+                <div class="setting-group">
+                    <h3>Remote Configuration (Team Sync)</h3>
+                    <p class="help-text">Sync convention groups from a remote JSON URL</p>
+                    <input type="url" id="remote-url" placeholder="https://example.com/conventions.json">
+                    <button id="sync-remote-btn" class="btn btn-secondary">Sync Now</button>
+                    <div id="sync-status" class="sync-status"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Group Editor Modal -->
+    <div id="group-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Create Convention Group</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="group-name">Group Name</label>
+                    <input type="text" id="group-name" placeholder="My Team's Conventions">
+                </div>
+                <div class="form-group">
+                    <label for="group-description">Description (optional)</label>
+                    <textarea id="group-description" rows="3"
+                        placeholder="Description of this convention group"></textarea>
+                </div>
+                <div class="form-group">
+                    <h3>Conventions</h3>
+                    <div id="conventions-list" class="conventions-list">
+                        <!-- Conventions will be listed here -->
+                    </div>
+                    <button id="add-convention-btn" class="btn btn-secondary btn-sm">+ Add Convention</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-group-btn" class="btn btn-secondary">Cancel</button>
+                <button id="save-group-btn" class="btn btn-primary">Save Group</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Convention Editor Modal -->
+    <div id="convention-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="convention-modal-title">Add Convention</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="convention-label">Label</label>
+                    <input type="text" id="convention-label" placeholder="suggestion">
+                </div>
+                <div class="form-group">
+                    <label for="convention-display-name">Display Name</label>
+                    <input type="text" id="convention-display-name" placeholder="Suggestion (non-blocking)">
+                </div>
+                <div class="form-group">
+                    <label for="convention-template">Template</label>
+                    <textarea id="convention-template" rows="4"
+                        placeholder="suggestion: <subject>&#10;&#10;<discussion>"></textarea>
+                    <p class="help-text">Use &lt;placeholder&gt; for required fields</p>
+                </div>
+                <div class="form-group">
+                    <label for="convention-description">Description (optional)</label>
+                    <textarea id="convention-description" rows="2"
+                        placeholder="Use for proposed improvements"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="convention-color">Color (optional)</label>
+                    <input type="color" id="convention-color" value="#3B82F6">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-convention-btn" class="btn btn-secondary">Cancel</button>
+                <button id="save-convention-btn" class="btn btn-primary">Save Convention</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./options.ts"></script>
+</body>
+
+</html>
