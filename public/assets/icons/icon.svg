@@ -1,4 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
-  <rect width="128" height="128" fill="#24292e" rx="20" ry="20"/>
-  <path fill="#ffffff" d="M32 32h64v48H64l-16 16v-16H32V32zm16 16v8h32v-8H48zm0 16v8h24v-8H48z"/>
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4f46e5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Background Rounded Square -->
+  <rect width="128" height="128" rx="28" fill="url(#logo-gradient)"/>
+  
+  <!-- Speech Bubble -->
+  <path d="M92 42C92 36.4772 87.5228 32 82 32H46C40.4772 32 36 36.4772 36 42V74C36 79.5228 40.4772 84 46 84H54L64 94L74 84H82C87.5228 84 92 79.5228 92 74V42Z" fill="white"/>
+  
+  <!-- "RFK" Text -->
+  <text x="64" y="66" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="20" fill="url(#logo-gradient)" text-anchor="middle" letter-spacing="-0.5">RFK</text>
 </svg>
