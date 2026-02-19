@@ -5,12 +5,16 @@
       <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
     </linearGradient>
   </defs>
-  <!-- Background Rounded Square -->
-  <rect width="128" height="128" rx="28" fill="url(#logo-gradient)"/>
   
-  <!-- Speech Bubble -->
-  <path d="M92 42C92 36.4772 87.5228 32 82 32H46C40.4772 32 36 36.4772 36 42V74C36 79.5228 40.4772 84 46 84H54L64 94L74 84H82C87.5228 84 92 79.5228 92 74V42Z" fill="white"/>
+  <!-- Outer Border (Thinner Gradient) -->
+  <rect x="3" y="3" width="122" height="122" rx="26" stroke="url(#logo-gradient)" stroke-width="6" fill="white"/>
   
-  <!-- "RFK" Text -->
-  <text x="64" y="66" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="20" fill="url(#logo-gradient)" text-anchor="middle" letter-spacing="-0.5">RFK</text>
+  <!-- Larger Speech Bubble -->
+  <path d="M102 40C102 33.3726 96.6274 28 90 28H38C31.3726 28 26 33.3726 26 40V78C26 84.6274 31.3726 90 38 90H52L64 102L76 90H90C96.6274 90 102 84.6274 102 78V40Z" fill="url(#logo-gradient)"/>
+  
+  <!-- White Message Box inside Bubble (Visual effect: background of text) -->
+  <rect x="32" y="34" width="64" height="48" rx="8" fill="white" fill-opacity="0.1"/>
+
+  <!-- "RFK" Text (Larger and White for contrast against gradient bubble) -->
+  <text x="64" y="69" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="28" fill="white" text-anchor="middle" letter-spacing="-0.5">RFK</text>
 </svg>
