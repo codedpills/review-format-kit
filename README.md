@@ -1,4 +1,4 @@
-# <img src="public/assets/icons/icon.svg" width="48" height="48" align="center"> Review Format Kit (RFK)
+# <img src="public/assets/icons/logo.png" height="48" align="center"> Review Format Kit (RFK)
 
 **Review Format Kit (RFK)** is a browser extension designed to help developers standardize their code review comments using proven conventions like [Conventional Comments](https://conventionalcomments.org/) and [Netlify Feedback Ladders](https://www.netlify.com/blog/2020/03/05/feedback-ladders-how-we-encode-code-reviews-at-netlify/).
 
@@ -22,8 +22,10 @@ Once installed, RFK integrates directly into your GitHub workflow:
 1. **Go to any Pull Request** on GitHub.
 2. **Click inside a comment field** (new comment, review, or inline reply).
 3. **Trigger the UI**: Click the floating convention icon in the toolbar or use the keyboard shortcut (`Cmd+Shift+/`).
+   ![Convention Panel](public/assets/screenshots/comment-box-conventions-panel.png)
 4. **Select your convention**: Search or navigate through your active group and press Enter.
 5. **Add details**: Fill in the placeholders in the inserted template.
+   ![Template Inserted](public/assets/screenshots/comment-box-template-inserted.png)
 
 ## Configuration & Customization
 
@@ -33,10 +35,14 @@ Access the extension settings to manage your conventions:
 2. Click **Open Settings**.
 3. In the **Convention Groups** tab, you can create new groups, edit existing ones, or view what's inside a group using the **Show conventions** accordion.
 
+![Managing Convention Groups](public/assets/screenshots/settings-convention-group.png)
+
 ### Team Synchronization
 Aligned teams review faster. To share conventions:
 - **Export**: Download your group configuration as a JSON file from the Import/Export tab.
 - **Sync**: Enter a URL to a shared JSON configuration in the settings to automatically keep your team's conventions up to date.
+
+![Import and Export Settings](public/assets/screenshots/settings-import-export.png)
 
 ---
 
