@@ -132,12 +132,28 @@ function createIconElement(textareaId: string): HTMLElement {
     button.title = 'Insert convention comment (Cmd+Shift+/)';
 
     // SVG icon (speech bubble with "CC")
-    button.innerHTML = `
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5l-3 3V4z" opacity="0.6"/>
-            <text x="4" y="10" font-size="6" font-weight="bold" fill="currentColor">CC</text>
-        </svg>
-    `;
+    const svgNamespace = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(svgNamespace, 'svg');
+    svg.setAttribute('width', '16');
+    svg.setAttribute('height', '16');
+    svg.setAttribute('viewBox', '0 0 16 16');
+    svg.setAttribute('fill', 'currentColor');
+
+    const path = document.createElementNS(svgNamespace, 'path');
+    path.setAttribute('d', 'M2 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5l-3 3V4z');
+    path.setAttribute('opacity', '0.6');
+
+    const text = document.createElementNS(svgNamespace, 'text');
+    text.setAttribute('x', '4');
+    text.setAttribute('y', '10');
+    text.setAttribute('font-size', '6');
+    text.setAttribute('font-weight', 'bold');
+    text.setAttribute('fill', 'currentColor');
+    text.textContent = 'CC';
+
+    svg.appendChild(path);
+    svg.appendChild(text);
+    button.appendChild(svg);
 
     container.appendChild(button);
     return container;

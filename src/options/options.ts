@@ -203,12 +203,24 @@ function createGroupCard(group: ConventionGroup): HTMLElement {
     // Accordion Toggle
     const expandBtn = document.createElement('button');
     expandBtn.className = 'group-expand-btn';
-    expandBtn.innerHTML = `
-        <span class="expand-label">Show conventions</span>
-        <svg class="chevron" viewBox="0 0 16 16" fill="currentColor">
-            <path d="M4.427 7.427l3.396 3.396 3.396-3.396.781.781-4.177 4.177-4.177-4.177.781-.781z"/>
-        </svg>
-    `;
+
+    const label = document.createElement('span');
+    label.className = 'expand-label';
+    label.textContent = 'Show conventions';
+
+    // Create chevron SVG
+    const svgNamespace = 'http://www.w3.org/2000/svg';
+    const chevronSvg = document.createElementNS(svgNamespace, 'svg');
+    chevronSvg.setAttribute('class', 'chevron');
+    chevronSvg.setAttribute('viewBox', '0 0 16 16');
+    chevronSvg.setAttribute('fill', 'currentColor');
+
+    const path = document.createElementNS(svgNamespace, 'path');
+    path.setAttribute('d', 'M4.427 7.427l3.396 3.396 3.396-3.396.781.781-4.177 4.177-4.177-4.177.781-.781z');
+
+    chevronSvg.appendChild(path);
+    expandBtn.appendChild(label);
+    expandBtn.appendChild(chevronSvg);
 
     const details = document.createElement('div');
     details.className = 'group-details';

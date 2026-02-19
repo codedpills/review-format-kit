@@ -73,8 +73,12 @@ function isValidGroup(group: unknown): group is ConventionGroup {
 
     const g = group as Record<string, unknown>;
 
-    // Check required fields
-    if (typeof g.id !== 'string' || typeof g.name !== 'string') {
+    // Check required fields and constraints
+    if (typeof g.id !== 'string' || g.id.length < 1 || g.id.length > 100) {
+        return false;
+    }
+
+    if (typeof g.name !== 'string' || g.name.length < 1 || g.name.length > 100) {
         return false;
     }
 
@@ -106,22 +110,21 @@ function isValidConvention(convention: unknown): boolean {
 
     const c = convention as Record<string, unknown>;
 
-    // Check required fields
+    // Check required fields and constraints
     if (
-        typeof c.id !== 'string' ||
-        typeof c.label !== 'string' ||
-        typeof c.displayName !== 'string' ||
-        typeof c.template !== 'string'
+        typeof c.id !== 'string' || c.id.length < 1 || c.id.length > 100 ||
+        typeof c.label !== 'string' || c.label.length < 1 || c.label.length > 50 ||
+        typeof c.displayName !== 'string' || c.displayName.length < 1 || c.displayName.length > 100 ||
+        typeof c.template !== 'string' || c.template.length < 1 || c.template.length > 5000
     ) {
         return false;
     }
 
-    // Optional fields validation
-    if (c.description !== undefined && typeof c.description !== 'string') {
+    if (c.description !== undefined && (typeof c.description !== 'string' || c.description.length > 500)) {
         return false;
     }
 
-    if (c.color !== undefined && typeof c.color !== 'string') {
+    if (c.color !== undefined && (typeof c.color !== 'string' || !/^#[0-9A-Fa-f]{6}$/.test(c.color))) {
         return false;
     }
 
