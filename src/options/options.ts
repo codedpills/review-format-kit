@@ -200,7 +200,80 @@ function createGroupCard(group: ConventionGroup): HTMLElement {
     card.appendChild(header);
     card.appendChild(info);
 
+    // Accordion Toggle
+    const expandBtn = document.createElement('button');
+    expandBtn.className = 'group-expand-btn';
+    expandBtn.innerHTML = `
+        <span class="expand-label">Show conventions</span>
+        <svg class="chevron" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M4.427 7.427l3.396 3.396 3.396-3.396.781.781-4.177 4.177-4.177-4.177.781-.781z"/>
+        </svg>
+    `;
+
+    const details = document.createElement('div');
+    details.className = 'group-details';
+
+    expandBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isExpanded = card.classList.toggle('expanded');
+        expandBtn.querySelector('.expand-label')!.textContent = isExpanded ? 'Hide conventions' : 'Show conventions';
+
+        if (isExpanded && details.children.length === 0) {
+            renderGroupConventions(group, details);
+        }
+    });
+
+    card.appendChild(expandBtn);
+    card.appendChild(details);
+
     return card;
+}
+
+/**
+ * Render conventions list within a group card (accordion content)
+ */
+function renderGroupConventions(group: ConventionGroup, container: HTMLElement): void {
+    const list = document.createElement('div');
+    list.className = 'accordion-conventions-list';
+
+    group.conventions.forEach((convention) => {
+        const item = document.createElement('div');
+        item.className = 'accordion-convention-item';
+
+        const header = document.createElement('div');
+        header.className = 'accordion-convention-header';
+
+        const title = document.createElement('span');
+        title.className = 'accordion-convention-title';
+        title.textContent = convention.displayName;
+        if (convention.color) {
+            title.style.color = convention.color;
+        }
+
+        const labelBadge = document.createElement('span');
+        labelBadge.className = 'badge';
+        labelBadge.textContent = convention.label;
+
+        header.appendChild(title);
+        header.appendChild(labelBadge);
+        item.appendChild(header);
+
+        if (convention.description) {
+            const desc = document.createElement('div');
+            desc.className = 'accordion-convention-desc';
+            desc.textContent = convention.description;
+            item.appendChild(desc);
+        }
+
+        const preview = document.createElement('div');
+        preview.className = 'accordion-convention-preview';
+        preview.textContent = convention.template;
+        item.appendChild(preview);
+
+        list.appendChild(item);
+    });
+
+    container.appendChild(list);
 }
 
 /**

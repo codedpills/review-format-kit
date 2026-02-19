@@ -148,6 +148,90 @@ header h1 {
     font-weight: 500;
 }
 
+/* Accordion Toggle */
+.group-expand-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: transparent;
+    border: none;
+    color: #57606a;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 0;
+    margin-top: 8px;
+    transition: color 0.2s ease;
+}
+
+.group-expand-btn:hover {
+    color: #24292f;
+}
+
+.group-expand-btn .chevron {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+}
+
+.group-card.expanded .group-expand-btn .chevron {
+    transform: rotate(180deg);
+}
+
+/* Group Details (Accordion Content) */
+.group-details {
+    display: none;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #d0d7de;
+}
+
+.group-card.expanded .group-details {
+    display: block;
+}
+
+.accordion-conventions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.accordion-convention-item {
+    padding: 12px;
+    background: #ffffff;
+    border: 1px solid #d8dee4;
+    border-radius: 6px;
+}
+
+.accordion-convention-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.accordion-convention-title {
+    font-weight: 600;
+    color: #24292f;
+}
+
+.accordion-convention-desc {
+    font-size: 12px;
+    color: #57606a;
+    margin-bottom: 8px;
+}
+
+.accordion-convention-preview {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 12px;
+    background: #f6f8fa;
+    padding: 8px;
+    border-radius: 4px;
+    color: #24292f;
+    border: 1px solid #d0d7de;
+    white-space: pre-wrap;
+}
+
 /* Badges */
 .badge {
     display: inline-block;
@@ -499,6 +583,37 @@ header h1 {
 
     .group-info p {
         color: #8b949e;
+    }
+
+    .group-expand-btn {
+        color: #8b949e;
+    }
+
+    .group-expand-btn:hover {
+        color: #c9d1d9;
+    }
+
+    .group-details {
+        border-color: #30363d;
+    }
+
+    .accordion-convention-item {
+        background: #161b22;
+        border-color: #30363d;
+    }
+
+    .accordion-convention-title {
+        color: #c9d1d9;
+    }
+
+    .accordion-convention-desc {
+        color: #8b949e;
+    }
+
+    .accordion-convention-preview {
+        background: #0d1117;
+        border-color: #30363d;
+        color: #c9d1d9;
     }
 
     .badge {
