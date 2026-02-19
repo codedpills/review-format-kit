@@ -35,6 +35,16 @@ async function init(): Promise<void> {
 
   // Set up MutationObserver for dynamic content
   observeDOM();
+
+  // Listen for config changes (e.g., shortcut update)
+  chrome.storage.onChanged.addListener(async (changes, area) => {
+    if (area === 'local' && changes.config) {
+      const newConfig = changes.config.newValue;
+      if (newConfig?.settings?.keyboardShortcut) {
+        registerShortcut(newConfig.settings.keyboardShortcut, getActiveConventions);
+      }
+    }
+  });
 }
 
 /**

@@ -6,8 +6,8 @@
 import { showDropdown, isDropdownVisible, hideDropdown } from './dropdown';
 import type { Convention } from '../lib/types';
 
-let isRegistered = false;
 let currentShortcut = 'Cmd+Shift+/';
+let currentListener: ((event: KeyboardEvent) => void) | null = null;
 
 /**
  * Register keyboard shortcut listener
@@ -16,25 +16,22 @@ export function registerShortcut(
   shortcut: string,
   getConventions: () => Promise<Convention[]>
 ): void {
-  if (isRegistered) {
-    unregisterShortcut();
-  }
+  // Always unregister first to avoid duplicates
+  unregisterShortcut();
 
   currentShortcut = shortcut;
+  currentListener = (event: KeyboardEvent) => handleShortcut(event, getConventions);
 
-  document.addEventListener('keydown', (event) => handleShortcut(event, getConventions));
-  isRegistered = true;
+  document.addEventListener('keydown', currentListener);
 }
 
 /**
  * Unregister keyboard shortcut listener
  */
 export function unregisterShortcut(): void {
-  if (isRegistered) {
-    document.removeEventListener('keydown', (event) =>
-      handleShortcut(event, () => Promise.resolve([]))
-    );
-    isRegistered = false;
+  if (currentListener) {
+    document.removeEventListener('keydown', currentListener);
+    currentListener = null;
   }
 }
 
@@ -49,6 +46,12 @@ async function handleShortcut(
     return;
   }
 
+  // Find focused textarea or editable element
+  const textarea = getFocusedTextarea();
+  if (!textarea) {
+    return;
+  }
+
   event.preventDefault();
   event.stopPropagation();
 
@@ -58,17 +61,9 @@ async function handleShortcut(
     return;
   }
 
-  // Find focused textarea
-  const textarea = getFocusedTextarea();
-  if (!textarea) {
-    console.log('PR Conventions: No focused textarea found');
-    return;
-  }
-
   // Get conventions
   const conventions = await getConventions();
   if (conventions.length === 0) {
-    console.warn('PR Conventions: No conventions available');
     return;
   }
 
@@ -98,16 +93,22 @@ function matchesShortcut(event: KeyboardEvent, shortcut: string): boolean {
   if (needsAlt && !event.altKey) return false;
 
   // Check key
-  const key = parts.find((p) => !['ctrl', 'cmd', 'command', 'shift', 'alt', 'option'].includes(p));
-  if (!key) return false;
+  const keyPart = parts.find(
+    (p) => !['ctrl', 'cmd', 'command', 'shift', 'alt', 'option'].includes(p)
+  );
+  if (!keyPart) return false;
 
-  // Handle special keys
+  // Handle special keys and common cases
   const eventKey = event.key.toLowerCase();
-  if (key === 'slash' || key === '/') {
-    return eventKey === '/' || eventKey === 'slash';
+  const eventCode = event.code.toLowerCase();
+
+  // Slash is special, especially with Shift
+  if (keyPart === 'slash' || keyPart === '/') {
+    // Shift + / is often ? in event.key, but code is always Slash
+    return eventKey === '/' || eventKey === '?' || eventCode === 'slash';
   }
 
-  return eventKey === key;
+  return eventKey === keyPart || eventCode === `key${keyPart}`;
 }
 
 /**
