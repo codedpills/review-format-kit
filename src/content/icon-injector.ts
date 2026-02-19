@@ -133,28 +133,19 @@ function createIconElement(textareaId: string): HTMLElement {
   button.setAttribute('aria-label', 'Insert convention comment');
   button.title = 'Insert convention comment (Cmd+Shift+/)';
 
-  // SVG icon (speech bubble with "CC")
+  // New branded SVG icon loaded from extension assets
   const svgNamespace = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(svgNamespace, 'svg');
-  svg.setAttribute('width', '16');
-  svg.setAttribute('height', '16');
-  svg.setAttribute('viewBox', '0 0 16 16');
-  svg.setAttribute('fill', 'currentColor');
+  svg.setAttribute('width', '18');
+  svg.setAttribute('height', '18');
+  svg.setAttribute('viewBox', '0 0 251 251');
 
-  const path = document.createElementNS(svgNamespace, 'path');
-  path.setAttribute('d', 'M2 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5l-3 3V4z');
-  path.setAttribute('opacity', '0.6');
+  const image = document.createElementNS(svgNamespace, 'image');
+  image.setAttribute('href', chrome.runtime.getURL('assets/icons/icon.svg'));
+  image.setAttribute('width', '251');
+  image.setAttribute('height', '251');
 
-  const text = document.createElementNS(svgNamespace, 'text');
-  text.setAttribute('x', '4');
-  text.setAttribute('y', '10');
-  text.setAttribute('font-size', '6');
-  text.setAttribute('font-weight', 'bold');
-  text.setAttribute('fill', 'currentColor');
-  text.textContent = 'CC';
-
-  svg.appendChild(path);
-  svg.appendChild(text);
+  svg.appendChild(image);
   button.appendChild(svg);
 
   container.appendChild(button);

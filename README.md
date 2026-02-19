@@ -1,4 +1,4 @@
-# Review Format Kit (RFK)
+# <img src="public/assets/icons/icon.svg" width="48" height="48" align="center"> Review Format Kit (RFK)
 
 **Review Format Kit (RFK)** is a browser extension designed to help developers standardize their code review comments using proven conventions like [Conventional Comments](https://conventionalcomments.org/) and [Netlify Feedback Ladders](https://www.netlify.com/blog/2020/03/05/feedback-ladders-how-we-encode-code-reviews-at-netlify/).
 

@@ -41,6 +41,11 @@
       "128": "assets/icons/icon.svg"
     }
   },
-  "options_page": "src/options/options.html"
-
+  "options_page": "src/options/options.html",
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/icons/icon.svg"],
+      "matches": ["*://github.com/*"]
+    }
+  ]
 }

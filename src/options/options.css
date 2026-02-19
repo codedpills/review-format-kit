@@ -37,6 +37,17 @@ header h1 {
   color: #24292f;
 }
 
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-logo {
+  width: 32px;
+  height: 32px;
+}
+
 /* Tabs */
 .tabs {
   display: flex;
