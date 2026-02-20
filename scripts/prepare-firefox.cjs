@@ -16,17 +16,30 @@ try {
 
     if (manifest.background && manifest.background.service_worker) {
         console.log('🔄 Converting service_worker to scripts for Firefox compatibility...');
-        
+
         const serviceWorker = manifest.background.service_worker;
-        
+
         // Firefox Manifest V3 uses 'scripts' instead of 'service_worker'
         // See: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/background
-        
+
         manifest.background.scripts = [serviceWorker];
         delete manifest.background.service_worker;
-        
+
+        // Add mandatory data collection disclosure for Firefox
+        // Since this extension doesn't collect personal data, we set it to 'none'
+        if (!manifest.browser_specific_settings) {
+            manifest.browser_specific_settings = {};
+        }
+        if (!manifest.browser_specific_settings.gecko) {
+            manifest.browser_specific_settings.gecko = {};
+        }
+
+        manifest.browser_specific_settings.gecko.data_collection_permissions = {
+            required: ['none']
+        };
+
         fs.writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2));
-        console.log('✅ Manifest successfully patched for Firefox!');
+        console.log('✅ Manifest successfully patched for Firefox (background and data collection)!');
     } else {
         console.log('ℹ️ No background service_worker found in manifest. Skipping patch.');
     }
