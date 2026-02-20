@@ -18,7 +18,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,json,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,json,css}\"",
     "package:chrome": "web-ext build -s dist -a packages --overwrite-dest",
-    "package:firefox": "web-ext build -s dist -a packages --overwrite-dest",
+    "package:firefox": "npm run build && node scripts/prepare-firefox.cjs && web-ext build -s dist -a packages --overwrite-dest",
     "prepare": "husky"
   },
   "keywords": [
