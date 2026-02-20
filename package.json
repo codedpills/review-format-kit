@@ -17,8 +17,8 @@
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,json,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,json,css}\"",
-    "package:chrome": "web-ext build -s dist -a packages",
-    "package:firefox": "web-ext build -s dist -a packages",
+    "package:chrome": "web-ext build -s dist -a packages --overwrite-dest",
+    "package:firefox": "web-ext build -s dist -a packages --overwrite-dest",
     "prepare": "husky"
   },
   "keywords": [

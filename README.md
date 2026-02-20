@@ -4,6 +4,8 @@
 
 Stop wasting time trying to remember the right keywords to use when manually typing code review comments, and start giving clear, actionable feedback with ease.
 
+[Privacy Policy](PRIVACY_POLICY.md)
+
 ## Key Features
 
 - 📝 **Pre-configured Conventions**: Ships with standard sets like Conventional Comments and Feedback Ladders.
@@ -12,6 +14,17 @@ Stop wasting time trying to remember the right keywords to use when manually typ
 - ⌨️ **Keyboard Shortcuts**: Open the UI instantly with `Cmd+Shift+/` (Mac) or `Ctrl+Shift+/` (Windows/Linux).
 - 🎨 **Visual Previews**: See what you're inserting before it hits the textarea.
 - 🌑 **Dark Mode**: Fully supports GitHub's light and dark themes.
+
+---
+
+## Download & Install
+
+RFK is available on the following stores:
+
+- [**Chrome Web Store**](https://chrome.google.com/webstore/detail/...) (Coming Soon)
+- [**Firefox Add-ons**](https://addons.mozilla.org/en-US/firefox/addon/...) (Coming Soon)
+
+For manual installation instructions, see the [Technical Details](#technical-details-for-developers) section.
 
 ---
 
@@ -66,6 +79,8 @@ If you are building RFK manually:
 - `npm test`: Run full test suite with Vitest.
 - `npm run test:coverage`: Generate coverage reports.
 - `npm run format`: Prettify source code.
+- `npm run package:chrome`: Package for Chrome Web Store distribution.
+- `npm run package:firefox`: Package for Firefox Add-ons distribution.
 
 ### Extension Structure
 - `src/content`: GitHub-specific injection logic and UI.
