@@ -21,8 +21,8 @@ Stop wasting time trying to remember the right keywords to use when manually typ
 
 RFK is available on the following stores:
 
-- [**Chrome Web Store**](https://chrome.google.com/webstore/detail/...) (Coming Soon)
-- [**Firefox Add-ons**](https://addons.mozilla.org/en-US/firefox/addon/...) (Coming Soon)
+- [**Chrome Web Store**](https://chromewebstore.google.com/detail/ibmogjoacignchmiidgmjhjflkfigakj?utm_source=item-share-cb)
+- [**Firefox Add-ons**](https://addons.mozilla.org/en-US/firefox/addon/review-format-kit-rfk/)
 
 For manual installation instructions, see the [Technical Details](#technical-details-for-developers) section.
 
