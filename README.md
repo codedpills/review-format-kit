@@ -93,7 +93,7 @@ If you are building RFK manually:
 ## Roadmap & Support
 
 - [x] v1.0: Core GitHub Integration & Remote Sync
-- [ ] v1.1: Multi-browser Store Release (Chrome, Firefox, Edge)
+- [x] v1.1: Multi-browser Store Release (Chrome, Firefox, Edge)
 - [ ] v2.0: GitLab & Bitbucket Support
 - [ ] v2.0: Workspace-specific auto-detection
 
